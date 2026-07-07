@@ -1,0 +1,18 @@
+FROM prefecthq/prefect:3.4.24-python3.12
+
+# git é OBRIGATÓRIO — sem ele o clone falha com "git: not found".
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt/prefect
+
+# Dependências continuam na imagem (from_source traz só o código).
+# Se mudar o requirements.txt → rebuild da imagem.
+# Se mudar o código do flow → só git push, sem rebuild.
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Sem COPY flows/ — o código vem do GitHub em cada run.
+# Sem COPY deploy.py — o deploy.py roda do HOST (não da imagem).
+CMD ["prefect", "worker", "start", "--pool", "lab-pool"]

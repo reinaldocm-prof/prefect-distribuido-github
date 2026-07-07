@@ -1,7 +1,7 @@
 import os
 from prefect import flow
 
-GITHUB_REPO = os.environ.get("GITHUB_REPO", "https://github.com/SEU-USUARIO/SEU-REPO.git")
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "https://github.com/reinaldocm-prof/prefect-distribuido-github.git")
 
 if __name__ == "__main__":
     flow.from_source(

@@ -24,8 +24,8 @@ services:
       dockerfile: Dockerfile.worker
 
     # Lê PREFECT_API_URL do .env — aponta o worker para o scheduler correto.
-    # Cenário A (mesma máquina): http://host.docker.internal:4201/api
-    # Cenário B (outra máquina): http://IP-DO-SCHEDULER:4201/api
+    # Cenário A (mesma máquina): http://host.docker.internal:4230/api
+    # Cenário B (outra máquina): http://IP-DO-SCHEDULER:4230/api
     env_file: .env
 
     # Reinicia automaticamente se o worker cair (ex: falha de rede transitória).

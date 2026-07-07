@@ -13,6 +13,10 @@ WORKDIR /opt/prefect
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# deploy.py volta para a imagem — permite rodar dentro do container.
+# flows/ NÃO vai — o código vem do GitHub em cada run.
+COPY deploy.py .
+
 # Sem COPY flows/ — o código vem do GitHub em cada run.
 # Sem COPY deploy.py — o deploy.py roda do HOST (não da imagem).
 CMD ["prefect", "worker", "start", "--pool", "lab-pool"]
